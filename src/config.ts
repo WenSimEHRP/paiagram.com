@@ -1,7 +1,7 @@
-import { $ } from "bun";
+import { execSync } from "node:child_process";
 export var gitHash = "none";
 try {
-    gitHash = (await $`git rev-parse --short HEAD`.text()).trim()
+    gitHash = execSync("git rev-parse --short HEAD").toString().trim();
 } catch (e) {
     console.error(e)
 }
