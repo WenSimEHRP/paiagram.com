@@ -30,25 +30,10 @@ const links: Record<string, LinkData> = {
         desc: "Read the documentation",
         icon: Icons.BookOpen,
     },
-    "Code Reference": {
-        href: "https://paiagram.com/nightly/api-docs/paiagram/",
-        desc: "API documentation",
-        icon: Icons.Braces,
-    },
     Robosign: {
         href: "https://paiagram.com/robosign",
         desc: "Create station signs",
         icon: Icons.Milestone,
-    },
-    "GitHub Repo": {
-        href: "https://github.com/WenSimEHRP/Paiagram",
-        desc: "View the source code",
-        icon: Icons.Code,
-    },
-    Connections: {
-        href: "./connections",
-        desc: "Friends",
-        icon: Icons.Contact,
     },
     About: {
         href: "#about",
@@ -56,23 +41,39 @@ const links: Record<string, LinkData> = {
         icon: Icons.Info,
     },
 };
+
+const extraLinks: Record<string, LinkData> = {
+    GitHub: {
+        href: "https://github.com/WenSimEHRP/Paiagram",
+        desc: "View the source code",
+        icon: Icons.Code,
+    },
+    Twitter: {
+        href: "https://twitter.com/WenSimEHRP",
+        desc: "Follow me on Twitter",
+        icon: Icons.X,
+    },
+    "Code Reference": {
+        href: "https://paiagram.com/nightly/api-docs/paiagram/",
+        desc: "API reference",
+        icon: Icons.FileCode,
+    }
+};
+
 ---
 
 <Layout
     title="Home"
     bodyStyle={`background-image: url(${bg_img});`}
-    extraClass="bg-cover bg-center bg-fixed overflow-y-scroll relative overflow-x-hidden"
+    extraClass="bg-cover bg-center bg-fixed"
 >
     <section
-        class="min-h-screen w-full lg:max-w-md bg-white/50 backdrop-blur-sm py-8 px-6 sm:px-10 flex flex-col gap-6 shadow-sm mr-0 lg:mr-16 mt-0 lg:mt-24 absolute right-0"
+        class={`h-min w-full lg:max-w-md bg-white/50 backdrop-blur-sm py-8 px-6 sm:px-10 flex flex-col shadow-sm mr-0 lg:mr-16 mt-0 lg:mt-24 absolute right-0 top-0 rounded-sm`}
     >
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-black">
-            Welcome to Paiagram
-        </h1>
-
-        <div
-            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-3 w-full"
-        >
+        <div class="h-[calc(100vh-8rem)] flex flex-col gap-3">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-4">
+                Welcome to Paiagram
+            </h1>
             {
                 Object.entries(links).map(([name, data]) => (
                     <a
@@ -92,16 +93,33 @@ const links: Record<string, LinkData> = {
                 ))
             }
         </div>
+        <div class="flex flex-col gap-3 mt-10">
+            {
+                Object.entries(extraLinks).map(([name, data]) => (
+                    <a
+                        href={data.href}
+                        class="w-full py-2 pr-3 pl-5 text-neutral-900 hover:bg-black/30 hover:text-white transition-all group hover:shadow-sm"
+                    >
+                        <div class="flex items-center gap-2">
+                            {data.icon && (
+                                <data.icon size={18} absoluteStrokeWidth />
+                            )}
+                            <span class="uppercase font-bold">{name}</span>
+                        </div>
+                        <small class="text-neutral-700 group-hover:text-white transition-all">
+                            {data.desc}
+                        </small>
+                    </a>
+                ))
+            }
+        </div>
     </section>
-    <!-- spacer -->
-    <div class="min-h-screen"></div>
-    <!-- main content -->
-    <GridBackground>
-        <section id="about" class="flex justify-center">
-            The about page is under construction...
-        </section>
-        <div class="flex justify-center text-2xl font-bold">
-            Blog posts are on their way. Bear with me...
+    <GridBackground extraClass="mt-[100vh] px-16 pt-50 pb-100">
+        <div class="flex flex-row gap-4">
+            <div class="flex-1 flex justify-center text-2xl font-bold">
+                Blog posts are on their way. Bear with me...
+            </div>
+            <div class="w-md"></div>
         </div>
     </GridBackground>
 </Layout>

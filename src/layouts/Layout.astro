@@ -1,9 +1,14 @@
 ---
 import "../styles/global.css";
 import "@fontsource-variable/merriweather-sans/index.css";
-import { gitHash } from "../config";
+import { gitHashShort, gitHashLong } from "../config";
 import * as Icons from "@lucide/astro";
-const { title = "My Site", bodyStyle = "", extraClass = "" } = Astro.props;
+const {
+    title = "My Site",
+    bodyStyle = "",
+    extraClass = "",
+    license = "CC BY-NC",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -20,16 +25,22 @@ const { title = "My Site", bodyStyle = "", extraClass = "" } = Astro.props;
             data-website-id="067cd05f-b395-4813-916c-2063c383685f"></script>
         <title>{title} | Paiagram</title>
     </head>
-    <body class={`min-h-screen w-full ${extraClass}`} style={bodyStyle}>
+    <body class=`overflow-y-scroll ${extraClass}` style={bodyStyle}>
         <slot />
+        <footer
+            class="w-full flex justify-center gap-1 bg-neutral-200 py-4 border-t border-neutral-400 text-sm text-neutral-700 relative"
+        >
+            &copy; 2025-{new Date().getFullYear()} Paiagram. All rights reserved.
+            <Icons.GitCommitHorizontal size={19} absoluteStrokeWidth />
+            <a
+                href={`https://github.com/wensimehrp/paiagram.com/commit/${gitHashLong}`}
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                {gitHashShort}
+            </a>
+        </footer>
     </body>
-    <footer
-        class="flex justify-center gap-1 bg-neutral-200 py-4 border-t border-neutral-400 text-sm text-neutral-700"
-    >
-        &copy; {new Date().getFullYear()} Paiagram. All rights reserved.
-        <Icons.GitCommitHorizontal size={19} absoluteStrokeWidth />
-        <span>{gitHash}</span>
-    </footer>
 </html>
 
 <style is:global>

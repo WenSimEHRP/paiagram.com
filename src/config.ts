@@ -1,8 +1,14 @@
 import { execSync } from "node:child_process";
-export var gitHash = "none";
+export var gitHashShort = "none";
+export var gitHashLong = "none";
 try {
-    gitHash = execSync("git rev-parse --short HEAD").toString().trim();
+    gitHashShort = execSync("git rev-parse --short HEAD").toString().trim();
 } catch (e) {
     console.error(e)
 }
-console.log(gitHash);
+try {
+    gitHashLong = execSync("git rev-parse HEAD").toString().trim();
+} catch (e) {
+    console.error(e)
+}
+console.log(gitHashShort);
