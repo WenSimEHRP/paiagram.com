@@ -1,0 +1,107 @@
+---
+import "../styles/global.css";
+import Layout from "../layouts/Layout.astro";
+import GridBackground from "../layouts/GridBackground.astro";
+import * as Icons from "@lucide/astro";
+import { type Icon as IconType } from "@lucide/astro";
+
+interface LinkData {
+    href: string;
+    desc: string;
+    icon?: typeof IconType;
+}
+
+export const bg_img =
+    "https://raw.githubusercontent.com/WenSimEHRP/WenSimEHRP/refs/heads/main/_MG_3019.avif";
+
+const links: Record<string, LinkData> = {
+    Nightly: {
+        href: "https://paiagram.com/nightly",
+        desc: "Run the latest version",
+        icon: Icons.FlaskConical,
+    },
+    Demo: {
+        href: "https://paiagram.com/demo",
+        desc: "View the demo",
+        icon: Icons.Play,
+    },
+    Docs: {
+        href: "https://paiagram.com/docs",
+        desc: "Read the documentation",
+        icon: Icons.BookOpen,
+    },
+    "Code Reference": {
+        href: "https://paiagram.com/nightly/api-docs/paiagram/",
+        desc: "API documentation",
+        icon: Icons.Braces,
+    },
+    Robosign: {
+        href: "https://paiagram.com/robosign",
+        desc: "Create station signs",
+        icon: Icons.Milestone,
+    },
+    "GitHub Repo": {
+        href: "https://github.com/WenSimEHRP/Paiagram",
+        desc: "View the source code",
+        icon: Icons.Code,
+    },
+    Connections: {
+        href: "./connections",
+        desc: "Friends",
+        icon: Icons.Contact,
+    },
+    About: {
+        href: "#about",
+        desc: "Learn about me and the project",
+        icon: Icons.Info,
+    },
+};
+---
+
+<Layout
+    title="Home"
+    bodyStyle={`background-image: url(${bg_img});`}
+    extraClass="bg-cover bg-center bg-fixed overflow-y-scroll relative overflow-x-hidden"
+>
+    <section
+        class="min-h-screen w-full lg:max-w-md bg-white/50 backdrop-blur-sm py-8 px-6 sm:px-10 flex flex-col gap-6 shadow-sm mr-0 lg:mr-16 mt-0 lg:mt-24 absolute right-0"
+    >
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-black">
+            Welcome to Paiagram
+        </h1>
+
+        <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-3 w-full"
+        >
+            {
+                Object.entries(links).map(([name, data]) => (
+                    <a
+                        href={data.href}
+                        class="w-full py-2 pr-3 pl-5 text-neutral-900 hover:bg-black/30 hover:text-white transition-all group hover:shadow-sm"
+                    >
+                        <div class="flex items-center gap-2">
+                            {data.icon && (
+                                <data.icon size={18} absoluteStrokeWidth />
+                            )}
+                            <span class="uppercase font-bold">{name}</span>
+                        </div>
+                        <small class="text-neutral-700 group-hover:text-white transition-all">
+                            {data.desc}
+                        </small>
+                    </a>
+                ))
+            }
+        </div>
+    </section>
+    <!-- spacer -->
+    <div class="min-h-screen"></div>
+    <!-- main content -->
+    <GridBackground>
+        <section id="about" class="flex justify-center">
+            The about page is under construction...
+        </section>
+        <div class="flex justify-center text-2xl font-bold">
+            Blog posts are on their way. Bear with me...
+        </div>
+    </GridBackground>
+</Layout>

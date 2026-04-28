@@ -1,0 +1,39 @@
+---
+import "../styles/global.css";
+import "@fontsource-variable/merriweather-sans/index.css";
+import { gitHash } from "../config";
+import * as Icons from "@lucide/astro";
+const { title = "My Site", bodyStyle = "", extraClass = "" } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="This is a website" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <script
+            defer
+            src="https://cloud.umami.is/script.js"
+            data-website-id="067cd05f-b395-4813-916c-2063c383685f"></script>
+        <title>{title} | Paiagram</title>
+    </head>
+    <body class={`min-h-screen w-full ${extraClass}`} style={bodyStyle}>
+        <slot />
+    </body>
+    <footer
+        class="flex justify-center gap-1 bg-neutral-200 py-4 border-t border-neutral-400 text-sm text-neutral-700"
+    >
+        &copy; {new Date().getFullYear()} Paiagram. All rights reserved.
+        <Icons.GitCommitHorizontal size={19} absoluteStrokeWidth />
+        <span>{gitHash}</span>
+    </footer>
+</html>
+
+<style is:global>
+    body {
+        font-family: "Merriweather Sans Variable", sans-serif;
+    }
+</style>

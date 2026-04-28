@@ -1,0 +1,65 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { bg_img } from "../pages/index.astro";
+
+interface Connection {
+    name: string;
+    desc: string;
+    link: string;
+    avatar_link: string;
+}
+
+const CONNECTIONS: Connection[] = [
+    {
+        name: "Paiagram.com",
+        desc: "Train stuff",
+        link: "https://paiagram.com",
+        avatar_link: "https://avatars.githubusercontent.com/u/145064583",
+    },
+    {
+        name: "WenSimEHRP",
+        desc: "Le GitHub",
+        link: "https://github.com/WenSimEHRP/",
+        avatar_link: "https://avatars.githubusercontent.com/u/145064583",
+    },
+];
+---
+
+<Layout
+    title="Connections"
+    bodyStyle={`background-image: url(${bg_img});`}
+    extraClass="bg-cover bg-center bg-fixed flex flex-col"
+>
+    <div
+        class="flex-1 mx-auto my-50 h-full w-full lg:max-w-5xl flex flex-col gap-4 p-6 bg-white/50 backdrop-blur-sm shadow-sm"
+    >
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-black">
+            Connections
+        </h1>
+        <section
+            class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+        >
+            {
+                CONNECTIONS.map((conn) => (
+                    <a
+                        href={conn.link}
+                        class="flex items-center gap-4 p-4 hover:bg-black/30 group transition-all hover:shadow-sm"
+                    >
+                        <img
+                            src={conn.avatar_link}
+                            class="w-12 h-12 rounded-full"
+                        />
+                        <div>
+                            <h2 class="text-lg font-bold group-hover:text-white transition-colors">
+                                {conn.name}
+                            </h2>
+                            <p class="text-sm text-neutral-700 group-hover:text-white transition-colors">
+                                {conn.desc}
+                            </p>
+                        </div>
+                    </a>
+                ))
+            }
+        </section>
+    </div>
+</Layout>
