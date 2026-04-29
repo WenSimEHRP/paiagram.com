@@ -3,7 +3,16 @@ const { extraClass = "" } = Astro.props;
 ---
 
 <div
-    class={`w-full bg-neutral-200 shadow-lg bg-[linear-gradient(to_right,#0000000f_1.5px,transparent_1.5px),linear-gradient(to_bottom,#0000000f_1.5px,transparent_1.5px)] bg-size-[10px_10px] ${extraClass}`}
+    class={`paper-container w-full bg-neutral-200 shadow-lg bg-[linear-gradient(to_right,#0000000f_1.5px,transparent_1.5px),linear-gradient(to_bottom,#0000000f_1.5px,transparent_1.5px)] bg-size-[10px_10px] ${extraClass}`}
 >
     <slot />
 </div>
+
+<style>
+    .paper-container {
+        --mask: radial-gradient(12px at 12px 24px, #0000 94%, #000) -12px 0px / 36px
+            100%;
+        -webkit-mask: var(--mask);
+        mask: var(--mask);
+    }
+</style>

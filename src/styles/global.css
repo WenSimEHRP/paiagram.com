@@ -1,5 +1,12 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 html {
   scroll-behavior: smooth;
+}
+
+article {
+  text-align: justify;
+  hyphens: auto;
+  overflow-wrap: break-word;
 }

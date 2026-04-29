@@ -4,6 +4,8 @@ import Layout from "../layouts/Layout.astro";
 import GridBackground from "../layouts/GridBackground.astro";
 import * as Icons from "@lucide/astro";
 import { type Icon as IconType } from "@lucide/astro";
+import SimpleButton from "../components/SimpleButton.astro";
+import About from "../content/about.md";
 
 interface LinkData {
     href: string;
@@ -30,11 +32,6 @@ const links: Record<string, LinkData> = {
         desc: "Read the documentation",
         icon: Icons.BookOpen,
     },
-    Robosign: {
-        href: "https://paiagram.com/robosign",
-        desc: "Create station signs",
-        icon: Icons.Milestone,
-    },
     About: {
         href: "#about",
         desc: "Learn about me and the project",
@@ -43,9 +40,24 @@ const links: Record<string, LinkData> = {
 };
 
 const extraLinks: Record<string, LinkData> = {
-    GitHub: {
+    Robosign: {
+        href: "https://paiagram.com/robosign",
+        desc: "Create station signs",
+        icon: Icons.Milestone,
+    },
+    "OUD/OUD2 Converter": {
+        href: "https://wensimehrp.github.io/Paiagram-oudia/",
+        desc: "Convert .oud(2) files to AST and JSON",
+        icon: Icons.FileText,
+    },
+    "OuDia to KDL": {
+        href: "https://wensimehrp.github.io/oudia-to-kdl/",
+        desc: "Convert OuDia AST to KDL",
+        icon: Icons.FileText,
+    },
+    "App Source": {
         href: "https://github.com/WenSimEHRP/Paiagram",
-        desc: "View the source code",
+        desc: "View the source code of Paiagram",
         icon: Icons.Code,
     },
     Twitter: {
@@ -57,69 +69,83 @@ const extraLinks: Record<string, LinkData> = {
         href: "https://paiagram.com/nightly/api-docs/paiagram/",
         desc: "API reference",
         icon: Icons.FileCode,
-    }
+    },
+    Mail: {
+        href: "mailto:wensimehrp@gmail.com",
+        desc: "Contact me via email",
+        icon: Icons.Mail,
+    },
+    "Old Site": {
+        href: "https://wensimehrp.github.io",
+        desc: "View the old site",
+        icon: Icons.Archive,
+    },
 };
-
 ---
 
 <Layout
     title="Home"
     bodyStyle={`background-image: url(${bg_img});`}
-    extraClass="bg-cover bg-center bg-fixed"
+    extraClass="bg-cover bg-center bg-fixed relative"
 >
-    <section
-        class={`h-min w-full lg:max-w-md bg-white/50 backdrop-blur-sm py-8 px-6 sm:px-10 flex flex-col shadow-sm mr-0 lg:mr-16 mt-0 lg:mt-24 absolute right-0 top-0 rounded-sm`}
+    <GridBackground extraClass="absolute top-[100vh] inset-0 -z-10" />
+    <div
+        class="grid grid-cols-1 w-full max-w-7xl mx-auto px-6 sm:px-12 pt-6 sm:pt-12 lg:pt-[calc(8rem)] gap-10 lg:grid-cols-[1fr_26rem] lg:grid-rows-[100vh_min-content_1fr]"
     >
-        <div class="h-[calc(100vh-8rem)] flex flex-col gap-3">
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-4">
-                Welcome to Paiagram
-            </h1>
-            {
-                Object.entries(links).map(([name, data]) => (
-                    <a
-                        href={data.href}
-                        class="w-full py-2 pr-3 pl-5 text-neutral-900 hover:bg-black/30 hover:text-white transition-all group hover:shadow-sm"
+        <div
+            class="h-min row-start-1 col-start-1 lg:row-start-1 lg:row-end-3 lg:col-start-2"
+        >
+            <section
+                id="welcome"
+                class="min-h-full bg-white/40 backdrop-blur-md shadow-sm lg:rounded-sm"
+            >
+                <div class="lg:h-[calc(100vh-8rem)] flex flex-col gap-4 p-6">
+                    <h1
+                        class="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mt-6 mb-4 pl-3"
                     >
-                        <div class="flex items-center gap-2">
-                            {data.icon && (
-                                <data.icon size={18} absoluteStrokeWidth />
-                            )}
-                            <span class="uppercase font-bold">{name}</span>
-                        </div>
-                        <small class="text-neutral-700 group-hover:text-white transition-all">
-                            {data.desc}
-                        </small>
-                    </a>
-                ))
-            }
+                        Welcome to Paiagram
+                    </h1>
+                    {
+                        Object.entries(links).map(([name, data]) => (
+                            <SimpleButton name={name} data={data} />
+                        ))
+                    }
+                </div>
+                <div class="border-t-2 border-gray-900/50 mx-12 lg:hidden">
+                </div>
+                <div class="flex flex-col gap-4 p-6">
+                    {
+                        Object.entries(extraLinks).map(([name, data]) => (
+                            <SimpleButton name={name} data={data} />
+                        ))
+                    }
+                </div>
+            </section>
         </div>
-        <div class="flex flex-col gap-3 mt-10">
-            {
-                Object.entries(extraLinks).map(([name, data]) => (
-                    <a
-                        href={data.href}
-                        class="w-full py-2 pr-3 pl-5 text-neutral-900 hover:bg-black/30 hover:text-white transition-all group hover:shadow-sm"
-                    >
-                        <div class="flex items-center gap-2">
-                            {data.icon && (
-                                <data.icon size={18} absoluteStrokeWidth />
-                            )}
-                            <span class="uppercase font-bold">{name}</span>
-                        </div>
-                        <small class="text-neutral-700 group-hover:text-white transition-all">
-                            {data.desc}
-                        </small>
-                    </a>
-                ))
-            }
+        <div
+            class="row-start-2 col-start-1 lg:row-start-2 lg:row-span-2 lg:col-start-1 col-span-1"
+        >
+            <article id="about" class="prose">
+                <About />
+            </article>
         </div>
+        <div
+            class="row-start-3 row-span-1 col-start-1 lg:row-start-3 lg:col-start-2 col-span-1"
+        >
+            Hi! This is the sidebar. There aren't much to fill in yet, but you
+            would see new stuff here in the future!
+        </div>
+    </div>
+    <section
+        id="end"
+        class="text-sm text-neutral-700 w-full text-center pt-12 pb-6 px-6"
+    >
+        This page contains a minimum amount of JavaScript. You can block it by
+        installing an Ad blocker.
+        <br />
+        It's only the footer after this point. Do you want to <a
+            href="#welcome"
+            class="text-black underline">scroll back up?</a
+        >
     </section>
-    <GridBackground extraClass="mt-[100vh] px-16 pt-50 pb-100">
-        <div class="flex flex-row gap-4">
-            <div class="flex-1 flex justify-center text-2xl font-bold">
-                Blog posts are on their way. Bear with me...
-            </div>
-            <div class="w-md"></div>
-        </div>
-    </GridBackground>
 </Layout>

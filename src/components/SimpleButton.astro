@@ -1,0 +1,19 @@
+---
+import * as Icons from "@lucide/astro";
+const {name, data } = Astro.props;
+---
+
+<a
+    href={data.href}
+    class="w-full py-2 pl-5 text-neutral-900 hover:bg-black/30 hover:text-white transition-all group hover:shadow-sm"
+>
+    <div class="flex items-center gap-2">
+        {data.icon && <data.icon size={18} absoluteStrokeWidth />}
+        <span class="uppercase font-bold">
+            {name}
+        </span>
+    </div>
+    <small class="text-neutral-700 group-hover:text-white transition-all">
+        {data.desc}
+    </small>
+</a>
