@@ -1,0 +1,117 @@
+---
+import crypto from "crypto";
+const { imageSrc, height } = Astro.props as {
+    imageSrc: string[];
+    height: string;
+};
+interface imageData {
+    src: string;
+    hash: string;
+}
+const images: imageData[] = imageSrc.map((src) => ({
+    src,
+    hash: crypto.createHash("sha256").update(src).digest("hex").slice(0, 8),
+}));
+---
+
+<div
+    class="flex overflow-x-auto scroll-smooth no-scrollbar snap-x snap-mandatory gap-12 my-10"
+    style={`height: ${height};`}
+    id="gallery-start"
+>
+    {
+        images.map(({ src, hash }, index) => {
+            // calculate next and previous hashes
+            const nextIndex = (index + 1) % images.length;
+            const prevIndex = (index - 1 + images.length) % images.length;
+            const next = images[nextIndex].hash;
+            const prev = images[prevIndex].hash;
+
+            return (
+                <>
+                    {/* slide */}
+                    <a
+                        href={`#zoom-${hash}`}
+                        class="flex-none w-full snap-center overflow-clip"
+                    >
+                        <img
+                            src={src}
+                            alt=""
+                            loading="lazy"
+                            decoding="async"
+                            class="mt-0 w-full h-full object-cover cursor-zoom-in transition-transform duration-300 hover:scale-105"
+                        />
+                    </a>
+
+                    {/* lightbox */}
+                    <div id={`zoom-${hash}`} class="lightbox">
+                        <a href="#gallery-start" class="close" />
+
+                        <a href={`#zoom-${prev}`} class="nav prev">
+                            ‹
+                        </a>
+
+                        <img src={src} alt="" />
+
+                        <a href={`#zoom-${next}`} class="nav next">
+                            ›
+                        </a>
+                    </div>
+                </>
+            );
+        })
+    }
+</div>
+
+<style>
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    .no-scrollbar {
+        scrollbar-width: none;
+    }
+
+    .lightbox {
+        display: none;
+    }
+
+    .lightbox:target {
+        position: fixed;
+        inset: 0;
+        z-index: 999;
+        display: grid;
+        place-items: center;
+        background: rgba(0, 0, 0, 0.92);
+    }
+
+    .lightbox img {
+        max-width: 90vw;
+        max-height: 90vh;
+        object-fit: contain;
+    }
+
+    .close {
+        position: absolute;
+        inset: 0;
+        cursor: zoom-out;
+    }
+
+    .nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 3rem;
+        color: white;
+        text-decoration: none;
+        padding: 1rem;
+        user-select: none;
+    }
+
+    .prev {
+        left: 1rem;
+    }
+
+    .next {
+        right: 1rem;
+    }
+</style>

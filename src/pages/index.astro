@@ -6,6 +6,7 @@ import * as Icons from "@lucide/astro";
 import { type Icon as IconType } from "@lucide/astro";
 import SimpleButton from "../components/SimpleButton.astro";
 import About from "../content/about.md";
+import ImageBar from "../components/ImageBar.astro";
 
 interface LinkData {
     href: string;
@@ -90,7 +91,7 @@ const extraLinks: Record<string, LinkData> = {
 >
     <GridBackground extraClass="absolute top-[100vh] inset-0 -z-10" />
     <div
-        class="grid grid-cols-1 w-full max-w-7xl mx-auto px-6 sm:px-12 pt-6 sm:pt-12 lg:pt-[calc(8rem)] gap-10 lg:grid-cols-[1fr_26rem] lg:grid-rows-[100vh_min-content_1fr]"
+        class="grid grid-cols-1 w-full max-w-7xl mx-auto px-6 sm:px-12 pt-6 sm:pt-12 lg:pt-[calc(8rem)] gap-10 lg:grid-cols-[1fr_26rem] lg:grid-rows-[minmax(calc(100vh-8rem),auto)_min-content_1fr]"
     >
         <div
             class="h-min row-start-1 col-start-1 lg:row-start-1 lg:row-end-3 lg:col-start-2"
@@ -99,7 +100,9 @@ const extraLinks: Record<string, LinkData> = {
                 id="welcome"
                 class="min-h-full bg-white/40 backdrop-blur-md shadow-sm lg:rounded-sm"
             >
-                <div class="lg:h-[calc(100vh-8rem)] flex flex-col gap-4 p-6">
+                <div
+                    class="lg:min-h-[calc(100vh-8rem)] flex flex-col gap-4 p-6"
+                >
                     <h1
                         class="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mt-6 mb-4 pl-3"
                     >
@@ -111,8 +114,7 @@ const extraLinks: Record<string, LinkData> = {
                         ))
                     }
                 </div>
-                <div class="border-t-2 border-gray-900/50 mx-12 lg:hidden">
-                </div>
+                <div class="border-t-2 border-gray-900/50 mx-12"></div>
                 <div class="flex flex-col gap-4 p-6">
                     {
                         Object.entries(extraLinks).map(([name, data]) => (
@@ -123,9 +125,23 @@ const extraLinks: Record<string, LinkData> = {
             </section>
         </div>
         <div
-            class="row-start-2 col-start-1 lg:row-start-2 lg:row-span-2 lg:col-start-1 col-span-1"
+            class="row-start-2 col-start-1 lg:row-start-2 lg:row-span-2 lg:col-start-1 col-span-1 mt-10 lg:mt-20"
         >
             <article id="about" class="prose">
+                <h1 id="about-paiagram">About Paiagram</h1>
+                <p>
+                    Paiagram is a timetable visualizer and Marey chart editor.
+                    It's designed with performance in mind.
+                </p>
+                <ImageBar
+                    height="400px"
+                    imageSrc={[
+                        "https://upload.wikimedia.org/wikipedia/commons/9/98/001_Golden_jackal_and_azureum_flowers_in_Jim_Corbett_National_Park_Photo_by_Giles_Laurent.jpg",
+                        "https://upload.wikimedia.org/wikipedia/commons/7/74/Panda_g%C3%A9ant_-_t%C3%AAte_%28Ailuropoda_melanoleuca%29_%282%29.jpg",
+                        "https://upload.wikimedia.org/wikipedia/commons/1/16/Model_M250_of_JR_Freight.jpg",
+                        "https://raw.githubusercontent.com/WenSimEHRP/Paiagram-typst/28c978a0aa676dc7ca4db37f5aa84257b9b3a1c6/jinghu.svg",
+                    ]}
+                />
                 <About />
             </article>
         </div>
