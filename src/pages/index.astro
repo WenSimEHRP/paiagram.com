@@ -1,4 +1,5 @@
 ---
+import SlideShow from "../components/SlideShow.astro";
 import "../styles/global.css";
 import Layout from "../layouts/Layout.astro";
 import GridBackground from "../layouts/GridBackground.astro";
@@ -14,9 +15,6 @@ interface LinkData {
     icon?: typeof IconType;
 }
 
-export const bg_img =
-    "https://raw.githubusercontent.com/WenSimEHRP/WenSimEHRP/refs/heads/main/_MG_3019.avif";
-
 const links: Record<string, LinkData> = {
     Nightly: {
         href: "https://paiagram.com/nightly",
@@ -25,7 +23,7 @@ const links: Record<string, LinkData> = {
     },
     Demo: {
         href: "https://paiagram.com/demo",
-        desc: "View the demo",
+        desc: "See China Railway's network",
         icon: Icons.Play,
     },
     Docs: {
@@ -84,17 +82,21 @@ const extraLinks: Record<string, LinkData> = {
 };
 ---
 
-<Layout
-    title="Home"
-    bodyStyle={`background-image: url(${bg_img});`}
-    extraClass="bg-cover bg-center bg-fixed relative"
->
-    <GridBackground extraClass="absolute top-[100vh] inset-0 -z-10" />
+<Layout title="Home" extraClass="relative">
+    <SlideShow
+        duration={10}
+        imageUrls={[
+            "https://raw.githubusercontent.com/WenSimEHRP/WenSimEHRP/refs/heads/main/_MG_3019.avif",
+            "https://github.com/user-attachments/assets/fc14bb3f-7735-4d62-98fa-3cd937254312",
+            "https://github.com/user-attachments/assets/3678d11d-ff95-4732-b08d-c2f0acc95ffc",
+        ]}
+    />
+    <GridBackground extraClass="absolute top-[100vh] w-screen inset-0 -z-10" />
     <div
         class="grid grid-cols-1 w-full max-w-7xl mx-auto px-6 sm:px-12 pt-6 sm:pt-12 lg:pt-[calc(8rem)] gap-10 lg:grid-cols-[1fr_26rem] lg:grid-rows-[minmax(calc(100vh-8rem),auto)_min-content_1fr]"
     >
         <div
-            class="h-min row-start-1 col-start-1 lg:row-start-1 lg:row-end-3 lg:col-start-2"
+            class="h-min lg:row-start-1 col-start-1 lg:row-end-3 lg:col-start-2"
         >
             <section
                 id="welcome"
@@ -125,28 +127,27 @@ const extraLinks: Record<string, LinkData> = {
             </section>
         </div>
         <div
-            class="row-start-2 col-start-1 lg:row-start-2 lg:row-span-2 lg:col-start-1 col-span-1 mt-10 lg:mt-20"
+            class="col-start-1 lg:row-start-2 lg:row-span-2 lg:col-start-1 col-span-1 mt-10 lg:mt-20"
         >
             <article id="about" class="prose">
                 <h1 id="about-paiagram">About Paiagram</h1>
+                <ImageBar
+                    width="100%"
+                    imageSrc={[
+                        "https://github.com/user-attachments/assets/3819f7b5-c33c-4e71-90a4-d61d8a4bb93b",
+                        "https://github.com/user-attachments/assets/1b53f533-ec6e-4183-b7d1-fbf471545318",
+                        "https://raw.githubusercontent.com/WenSimEHRP/Paiagram-typst/28c978a0aa676dc7ca4db37f5aa84257b9b3a1c6/jinghu.svg",
+                    ]}
+                />
                 <p>
                     Paiagram is a timetable visualizer and Marey chart editor.
                     It's designed with performance in mind.
                 </p>
-                <ImageBar
-                    height="400px"
-                    imageSrc={[
-                        "https://upload.wikimedia.org/wikipedia/commons/9/98/001_Golden_jackal_and_azureum_flowers_in_Jim_Corbett_National_Park_Photo_by_Giles_Laurent.jpg",
-                        "https://upload.wikimedia.org/wikipedia/commons/7/74/Panda_g%C3%A9ant_-_t%C3%AAte_%28Ailuropoda_melanoleuca%29_%282%29.jpg",
-                        "https://upload.wikimedia.org/wikipedia/commons/1/16/Model_M250_of_JR_Freight.jpg",
-                        "https://raw.githubusercontent.com/WenSimEHRP/Paiagram-typst/28c978a0aa676dc7ca4db37f5aa84257b9b3a1c6/jinghu.svg",
-                    ]}
-                />
                 <About />
             </article>
         </div>
         <div
-            class="row-start-3 row-span-1 col-start-1 lg:row-start-3 lg:col-start-2 col-span-1"
+            class="row-span-1 col-start-1 lg:row-start-3 lg:col-start-2 col-span-1"
         >
             Hi! This is the sidebar. There aren't much to fill in yet, but you
             would see new stuff here in the future!

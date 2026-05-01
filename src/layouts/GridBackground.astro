@@ -7,12 +7,3 @@ const { extraClass = "" } = Astro.props;
 >
     <slot />
 </div>
-
-<style>
-    .paper-container {
-        --mask: radial-gradient(12px at 12px 24px, #0000 94%, #000) -12px 0px / 36px
-            100%;
-        -webkit-mask: var(--mask);
-        mask: var(--mask);
-    }
-</style>

@@ -1,0 +1,51 @@
+---
+const { imageUrls, duration = 8 } = Astro.props as {
+    imageUrls: string[];
+    duration: number;
+};
+const total = imageUrls.length * duration;
+---
+
+<style>
+    @keyframes fade {
+        0% {
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        40% {
+            opacity: 1;
+        }
+        50% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+
+    .slide {
+        animation-name: fade;
+        animation-iteration-count: infinite;
+        animation-fill-mode: both;
+        animation-timing-function: ease-in-out;
+        will-change: opacity;
+    }
+</style>
+
+<div class="absolute w-screen h-screen overflow-hidden -z-100 bg-black">
+    {
+        imageUrls.map((src, i) => (
+            <img
+                src={src}
+                alt=""
+                style={`animation-delay: ${i * duration}s; animation-duration: ${total}s;`}
+                class={`
+                    slide absolute inset-0 w-full h-full object-cover
+                    ${i === 0 ? "opacity-100" : "opacity-0"}
+                `}
+            />
+        ))
+    }
+</div>

@@ -1,8 +1,13 @@
 ---
 import crypto from "crypto";
-const { imageSrc, height } = Astro.props as {
+const {
+    imageSrc,
+    width,
+    aspectRatio = "16 / 10",
+} = Astro.props as {
     imageSrc: string[];
-    height: string;
+    width: string;
+    aspectRatio: string;
 };
 interface imageData {
     src: string;
@@ -15,8 +20,8 @@ const images: imageData[] = imageSrc.map((src) => ({
 ---
 
 <div
-    class="flex overflow-x-auto scroll-smooth no-scrollbar snap-x snap-mandatory gap-12 my-10"
-    style={`height: ${height};`}
+    class="flex overflow-x-auto scroll-smooth no-scrollbar snap-x gap-12 snap-proximity my-10 p-1"
+    style={`width: ${width}; aspect-ratio: ${aspectRatio}`}
     id="gallery-start"
 >
     {
@@ -32,7 +37,7 @@ const images: imageData[] = imageSrc.map((src) => ({
                     {/* slide */}
                     <a
                         href={`#zoom-${hash}`}
-                        class="flex-none w-full snap-center overflow-clip"
+                        class="flex-none w-full snap-center overflow-clip shadow-sm"
                     >
                         <img
                             src={src}
