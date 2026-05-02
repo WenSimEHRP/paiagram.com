@@ -1,5 +1,9 @@
 ---
 import crypto from "crypto";
+import { batchGetFinalImageUrl } from "../resolve_final_url.ts";
+import { Image } from "astro:assets";
+import { AVIF_QUALITY } from "../config";
+
 const {
     imageSrc,
     width,
@@ -9,13 +13,20 @@ const {
     width: string;
     aspectRatio: string;
 };
+
+const finalImageSrc = await batchGetFinalImageUrl(imageSrc);
+
 interface imageData {
     src: string;
     hash: string;
 }
-const images: imageData[] = imageSrc.map((src) => ({
+const images: imageData[] = finalImageSrc.map((src, i) => ({
     src,
-    hash: crypto.createHash("sha256").update(src).digest("hex").slice(0, 8),
+    hash: crypto
+        .createHash("sha256")
+        .update(imageSrc[i])
+        .digest("hex")
+        .slice(0, 8),
 }));
 ---
 
@@ -39,12 +50,14 @@ const images: imageData[] = imageSrc.map((src) => ({
                         href={`#zoom-${hash}`}
                         class="flex-none w-full snap-center overflow-clip shadow-sm"
                     >
-                        <img
+                        <Image
+                            height={1080}
+                            width={1920}
                             src={src}
                             alt=""
-                            loading="lazy"
-                            decoding="async"
                             class="mt-0 w-full h-full object-cover cursor-zoom-in transition-transform duration-300 hover:scale-105"
+                            format="avif"
+                            quality={AVIF_QUALITY}
                         />
                     </a>
 
@@ -56,7 +69,14 @@ const images: imageData[] = imageSrc.map((src) => ({
                             ‹
                         </a>
 
-                        <img src={src} alt="" />
+                        <Image
+                            height={1080}
+                            width={1920}
+                            src={src}
+                            alt=""
+                            format="avif"
+                            quality={AVIF_QUALITY}
+                        />
 
                         <a href={`#zoom-${next}`} class="nav next">
                             ›

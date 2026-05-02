@@ -4,11 +4,12 @@ export var gitHashLong = "none";
 try {
     gitHashShort = execSync("git rev-parse --short HEAD").toString().trim();
 } catch (e) {
-    console.error(e)
+    console.error(e);
 }
 try {
     gitHashLong = execSync("git rev-parse HEAD").toString().trim();
 } catch (e) {
-    console.error(e)
+    console.error(e);
 }
 console.log(gitHashShort);
+export const AVIF_QUALITY = 75;
