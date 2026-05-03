@@ -127,10 +127,52 @@ const extraLinks: Record<string, LinkData> = {
             </section>
         </div>
         <div
+            class="row-span-1 col-start-1 lg:row-start-3 lg:col-start-2 col-span-1 grid gap-4 grid-rows-1 h-min"
+        >
+            {
+                [
+                    {
+                        title: "Fast",
+                        desc: "Runs at 60fps on an Intel Core i3 3rd gen, inside the browser.",
+                        icon: Icons.ChevronsUp,
+                    },
+                    {
+                        title: "Localization",
+                        desc: "Never bother about languages again.",
+                        icon: Icons.Earth,
+                    },
+                    {
+                        title: "Open Source",
+                        desc: "MPL-2.0 licensed. Free as in freedom.",
+                        icon: Icons.Leaf,
+                    },
+                    {
+                        title: "Offline & Multiplatform",
+                        desc: "Use the app offline. Download the app bundle and use it everywhere. You can also build Linux, MacOS, and Windows versions yourself.",
+                        icon: Icons.GlobeOff,
+                    },
+                    {
+                        title: "Imports",
+                        desc: "Import your GTFS and OuDia(Second) and immediately get started editing.",
+                        icon: Icons.FolderDown,
+                    },
+                ].map((it) => (
+                    <div class="w-full h-min bg-white/40 backdrop-blur-md shadow-sm rounded-sm p-5">
+                        <div class="flex items-center gap-2">
+                            <it.icon size={18} absoluteStrokeWidth />
+                            <span class="text-neutral-900 uppercase font-bold">
+                                {it.title}
+                            </span>
+                        </div>
+                        <small>{it.desc}</small>
+                    </div>
+                ))
+            }
+        </div>
+        <div
             class="col-start-1 lg:row-start-2 lg:row-span-2 lg:col-start-1 col-span-1 mt-10 lg:mt-20"
         >
             <article id="about" class="prose">
-                <h1 id="about-paiagram">About Paiagram</h1>
                 <ImageBar
                     width="100%"
                     imageSrc={[
@@ -139,18 +181,8 @@ const extraLinks: Record<string, LinkData> = {
                         "https://raw.githubusercontent.com/WenSimEHRP/Paiagram-typst/28c978a0aa676dc7ca4db37f5aa84257b9b3a1c6/jinghu.svg",
                     ]}
                 />
-                <p>
-                    Paiagram is a timetable visualizer and Marey chart editor.
-                    It's designed with performance in mind.
-                </p>
                 <About />
             </article>
-        </div>
-        <div
-            class="row-span-1 col-start-1 lg:row-start-3 lg:col-start-2 col-span-1"
-        >
-            Hi! This is the sidebar. There aren't much to fill in yet, but you
-            would see new stuff here in the future!
         </div>
     </div>
     <section
